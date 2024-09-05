@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MVCAssignment.DAL.Data
 {
-    internal class AppDbContext : DbContext
+    public class AppDbContext : DbContext
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
