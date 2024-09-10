@@ -16,7 +16,7 @@ namespace MVCAssignment.BLL.Repositories
 
         public DepartmentRepository(AppDbContext dbContext)
         {
-            //_dbContext = new AppDbContext();     
+            _dbContext = dbContext;  
         }
         public int Add(Department department)
         {
