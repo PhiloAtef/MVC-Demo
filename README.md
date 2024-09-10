@@ -1,54 +1,24 @@
-All in .net 5
-create PL, DAL AND BLL projects in solution 
+now we need to start creating views 
 
-add refrence in dependencies to the projects so DAL=referenced in=> BLL => referenced in PL
+first we pass the model data in the controller that we get from the repository in the BLL.
+so for index, in the return view() we pass it the departments since in this case we are working on the departments repository. so we will write in the return of the index return view(departments)
 
-add Data, Models folders in DAL 
+then right click index and create view
 
-create BOCO class in models 
+then we bind the data to that view using the @model at the start of the view
 
-add folder in Data called configurations and create class configurations that inherits IEntityTypeConfiguration interface with type <targeted class>
+to do that we need to check first what is the return type of the model data that is being passed through. in our first case, the GETALL function returns an IEnumerable of type department so we add that to the @model
 
-then in Data, Add the database context
-and do your onconfiguring and onmodelcreating overrides (subject to change later due to how cumbersome it is and that i know there is a different way to do this)
-(dont forget to add dbsets)
+and preferably, add the @model IEnumerable<Department> to the global view imports
 
-business logic layer
-============
+then start creating ur view using html
 
-can either use (generic) repository design pattern or unit of work
+u can call the departments we sent using Model in the razor page 
 
-we will use non-generic repository design pattern for now
+c# logic using @
 
-first step: interfaces and repositories folder in BLL
+inside anchors, add asp-controller and asp-action to deffine anchor routing 
 
-We have interfaces in repositories because what if we have more than 1 DB or more than 1 way
-of communicating with the DB, so we would have only 1 interface with the 5 main actions (add,
-delete, update .. etc.) and we could have multiple implementations to those interfaces.
-We can add which implementation to use during dependency injection.
-
-Dependency Injection (DI)
-=======================
-
-Dependency Injection is when we let the framework be responsible for creating the objects and
-managing their life cycles rather than manually creating the objects and having to manage all of
-the references on our own.
-
-We have 3 functions to register dependencies, and they differ from each
-other based on the lifecycle of the object
-
-● AddSingleton => the object is created once and each object that requires a reference of
-the created object we pass the same reference, lasts for the lifetime of the application
-itself.
-● AddScoped => lasts per request, meaning if one request for example has a lot of actions
-(add, update, delete) we use the same object to do all of these actions.
-● AddTransient => per operation, meaning if one request for example has a lot of actions
-(add, update, delete) we use a new instance for each action.
-
-Dynamic Connection String
-========================
-By Adding the “ConnectionStrings” object in the appsettings.json, we can define multiple DB
-connection strings to connect to
-
+also add asp-route-Hamada to send props or variables along the route
 
 
