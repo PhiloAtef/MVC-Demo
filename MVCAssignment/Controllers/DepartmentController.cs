@@ -12,8 +12,8 @@ namespace MVCAssignment.PL.Controllers
         }
         public IActionResult Index()
         {
-            _repository.GetAll();
-            return View();
+            var departments = _repository.GetAll();
+            return View(departments);
         }
     }
 }
