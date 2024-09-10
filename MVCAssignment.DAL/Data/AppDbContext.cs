@@ -11,10 +11,14 @@ namespace MVCAssignment.DAL.Data
 {
     public class AppDbContext : DbContext
     {
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public AppDbContext(DbContextOptions<AppDbContext> options):base(options)
         {
-            optionsBuilder.UseSqlServer("Server =.; Database =test; Trusted_Connection=True; MultipleActiveResultSets=True");
+            
         }
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder.UseSqlServer("Server =.; Database =test; Trusted_Connection=True; MultipleActiveResultSets=True");
+        //}
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //modelBuilder.ApplyConfiguration<Department>(new DepartmentConfigurations());
