@@ -45,7 +45,7 @@ namespace MVCAssignment.PL.Controllers
         }
 
         [HttpGet]
-        public IActionResult Details(int? id)
+        public IActionResult Details(int? id, string viewName = "Details")
         {
             if (!id.HasValue)
             {
@@ -56,26 +56,29 @@ namespace MVCAssignment.PL.Controllers
             {
                 return NotFound(); 
             }
-            return View(department);
+            return View(viewName, department);
         }
 
         public IActionResult Edit(int? id)
         {
-            if (!id.HasValue)
-            {
-                return BadRequest();
-            }
-            var department = _repository.GetById(id.Value);
+            //if (!id.HasValue)
+            //{
+            //    return BadRequest();
+            //}
+            //var department = _repository.GetById(id.Value);
 
-            if (department == null)
-            {
-                return NotFound();
-            }
+            //if (department == null)
+            //{
+            //    return NotFound();
+            //}
 
-            return View(department);
+            //return View(department);
+
+            return Details(id, "Edit");
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Edit([FromRoute]int id,Department department)
         {
             if (id != department.Id)
