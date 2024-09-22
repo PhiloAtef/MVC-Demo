@@ -1,15 +1,21 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Hosting;
 using MVCAssignment.BLL.Interfaces;
 using MVCAssignment.DAL.Models;
+using System;
 
 namespace MVCAssignment.PL.Controllers
 {
     public class DepartmentController : Controller
     {
         private readonly IDepartmentRepository _repository;
-        public DepartmentController(IDepartmentRepository departmentRepository)
+        private readonly IWebHostEnvironment _env;
+
+        public DepartmentController(IDepartmentRepository departmentRepository, IWebHostEnvironment env)
         {
             _repository = departmentRepository;
+            _env = env;
         }
         [HttpGet]
         public IActionResult Index()
@@ -53,6 +59,55 @@ namespace MVCAssignment.PL.Controllers
             return View(department);
         }
 
+        public IActionResult Edit(int? id)
+        {
+            if (!id.HasValue)
+            {
+                return BadRequest();
+            }
+            var department = _repository.GetById(id.Value);
+
+            if (department == null)
+            {
+                return NotFound();
+            }
+
+            return View(department);
+        }
+
+        [HttpPost]
+        public IActionResult Edit([FromRoute]int id,Department department)
+        {
+            if (id != department.Id)
+            {
+                return BadRequest();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(department);
+            }
+
+            try
+            {
+                _repository.Update(department);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+
+                if (_env.IsDevelopment())
+                {
+                    ModelState.AddModelError(string.Empty, ex.Message);
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Error occured during department update");
+                }
+
+                return View(department);
+            }
+        }
         
     }
 }
