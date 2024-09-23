@@ -111,7 +111,35 @@ namespace MVCAssignment.PL.Controllers
                 return View(department);
             }
         }
-        
+
+        public IActionResult Delete(int? id)
+        {
+            return Details(id, "Delete");
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(Department department)
+        {
+            try
+            {
+                _repository.Delete(department);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+
+                if (_env.IsDevelopment())
+                {
+                    ModelState.AddModelError(string.Empty, ex.Message);
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Error occured during department delete");
+                }
+
+                return View(department);
+            }
+        }
     }
 }
 
