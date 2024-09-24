@@ -23,9 +23,9 @@ namespace MVCAssignment.DAL.Models
         [EnumMember(Value = "PartTime")]
         PartTime = 2
     }
-    public class Employee
+    public class Employee : ModelBase
     {
-        public int Id { get; set; }
+        
 
         [Required(ErrorMessage ="Name is required")]
         [MaxLength(50,ErrorMessage ="Max length is 50")]

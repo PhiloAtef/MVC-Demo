@@ -7,8 +7,13 @@ using System.Threading.Tasks;
 
 namespace MVCAssignment.BLL.Interfaces
 {
-    public interface IEmployeeRepository : IGenericRepository<Employee>
+    public interface IGenericRepository<T> where T : ModelBase
     {
-        IQueryable<Employee> GetEmployeeByAddress(string address);
+        IEnumerable<T> GetAll();
+        T GetById(int id);
+
+        int Add(T item);
+        int Update(T item);
+        int Delete(T item);
     }
 }

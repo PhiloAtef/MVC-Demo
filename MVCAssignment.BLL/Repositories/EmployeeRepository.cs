@@ -10,40 +10,18 @@ using System.Threading.Tasks;
 
 namespace MVCAssignment.BLL.Repositories
 {
-    public class EmployeeRepository : IEmployeeRepository
+    public class EmployeeRepository : GenericRepository<Employee>, IEmployeeRepository
     {
-        private readonly AppDbContext _dbContext;
+        //private readonly AppDbContext _dbContext;
 
-        public EmployeeRepository(AppDbContext dbContext)
+        public EmployeeRepository(AppDbContext dbContext) : base(dbContext)
         {
-            _dbContext = dbContext;
-        }
-        public int Add(Employee Employee)
-        {
-            _dbContext.Employees.Add(Employee);
-            return _dbContext.SaveChanges();
+            //_dbContext = dbContext;
         }
 
-        public int Delete(Employee Employee)
+        public IQueryable<Employee> GetEmployeeByAddress(string address)
         {
-            _dbContext.Employees.Remove(Employee);
-            return _dbContext.SaveChanges();
-        }
-
-        public IEnumerable<Employee> GetAll()
-        {
-            return _dbContext.Employees.AsNoTracking().ToList();
-        }
-
-        public Employee GetById(int id)
-        {
-            return _dbContext.Find<Employee>(id);
-        }
-
-        public int Update(Employee Employee)
-        {
-            _dbContext.Employees.Update(Employee);
-            return _dbContext.SaveChanges();
+            return _dbContext.Employees.Where(e => e.Address.ToLower().Contains(address.ToLower()));
         }
     }
 }

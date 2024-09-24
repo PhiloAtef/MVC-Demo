@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace MVCAssignment.DAL.Models
 {
-    public class Department
+    public class Department : ModelBase
     {
-        public int Id { get; set; }
+        
         [Required(ErrorMessage = "Name is required")]
         public string Name { get; set; }
 
