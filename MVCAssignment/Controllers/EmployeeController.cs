@@ -20,7 +20,9 @@ namespace MVCAssignment.PL.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            TempData.Keep();
             var Employees = _repository.GetAll();
+            ViewData["Message"] = "hello :D";
             return View(Employees);
         }
 
@@ -38,7 +40,12 @@ namespace MVCAssignment.PL.Controllers
                 var count = _repository.Add(Employee);
                 if (count > 0)
                 {
+                    TempData["Message"] = "Employee created";
                     return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    TempData["Message"] = "Error occurred";
                 }
             }
             return View(Employee);
