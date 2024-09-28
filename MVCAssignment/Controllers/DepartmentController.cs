@@ -111,11 +111,12 @@ namespace MVCAssignment.PL.Controllers
                 return View(department);
             }
         }
-
+        [HttpGet]
         public IActionResult Delete(int? id)
         {
             return Details(id, "Delete");
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Delete(Department department)

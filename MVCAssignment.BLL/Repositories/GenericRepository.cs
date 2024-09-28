@@ -32,6 +32,10 @@ namespace MVCAssignment.BLL.Repositories
 
         public IEnumerable<T> GetAll()
         {
+            if (typeof(T) == typeof(Employee))
+            {
+                return (IEnumerable<T>)_dbContext.Employees.Include(e => e.Department).AsNoTracking().ToList();
+            }
             return _dbContext.Set<T>().AsNoTracking().ToList();
         }
 

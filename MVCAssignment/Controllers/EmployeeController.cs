@@ -11,11 +11,13 @@ namespace MVCAssignment.PL.Controllers
     {
         private readonly IEmployeeRepository _repository;
         private readonly IWebHostEnvironment _env;
+        //private readonly IDepartmentRepository _departmentRepository;
 
-        public EmployeeController(IEmployeeRepository EmployeeRepository, IWebHostEnvironment env)
+        public EmployeeController(IEmployeeRepository EmployeeRepository, IWebHostEnvironment env, /*IDepartmentRepository departmentRepository*/)
         {
             _repository = EmployeeRepository;
             _env = env;
+            //_departmentRepository = departmentRepository;
         }
         [HttpGet]
         public IActionResult Index()
@@ -29,6 +31,7 @@ namespace MVCAssignment.PL.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            //ViewBag.Departments = _departmentRepository.GetAll();
             return View();
         }
 
@@ -59,6 +62,7 @@ namespace MVCAssignment.PL.Controllers
                 return BadRequest();
             }
             var Employee = _repository.GetById(id.Value);
+            //ViewBag.Departments = _departmentRepository.GetAll();
             if (Employee == null)
             {
                 return NotFound();

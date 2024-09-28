@@ -34,7 +34,7 @@ namespace MVCAssignment.DAL.Models
         public string Name { get; set; }
         [Range(21,60)]
         public int? Age { get; set; }
-        [RegularExpression(@"[0-9]{1,3}-[a-zA-Z]{5,10}=[a-zA-Z]{4,10}=[a-zA-Z]{5,10}$"
+        [RegularExpression(@"([A-Za-z0-9]+(-[A-Za-z0-9]+)+)"
                            , ErrorMessage ="Address Must be like 123-street-city-country")]
         public string Address { get; set; }
         [DataType(DataType.Currency)]
