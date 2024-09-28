@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
@@ -51,5 +52,11 @@ namespace MVCAssignment.DAL.Models
         public bool IsDeleted { get; set; }
 
         public Gender Gender { get; set; }
+
+        public Department Department { get; set; }
+
+        //Fk column
+        [InverseProperty(nameof(Models.Department.Employees))]
+        public int? DepartmentId { get; set; }
     }
 }
